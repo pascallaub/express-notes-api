@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes App with Websockets and Vite</title>
+  </head>
+  <body>
+    <h1>Notes App</h1>
+
+    <form id="add-note-form">
+      <input type="text" name="note" placeholder="note" required>
+      <input type="text" name="autor" placeholder="autor" required>
+      <input type="text" name="date" placeholder="date" required>
+      <button type="submit">Add Note</button>
+    </form>
+
+    <div id="notes-container">
+
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
