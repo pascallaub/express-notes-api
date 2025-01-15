@@ -22,8 +22,7 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/notes/:id', (req, res) => {
-    const id = req.params.id;
-    const note = notes.find(note => note.id == id);
+    const note = notes.find(note => note.id === req.params.id);
     res.json(note);
 });
 
