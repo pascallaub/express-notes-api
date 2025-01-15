@@ -13,10 +13,6 @@ let notes = [
     }
 ]
 
-app.listen(port, () => {
-    console.log(`Server is running on port http://localhost:${port}`);
-});
-    
 app.get('/notes', (req, res) => {
     res.json(notes);
 });
@@ -50,4 +46,8 @@ app.delete('/notes/:id', (req, res) => {
     const id = req.params.id;
     notes = notes.filter(note => note.id != id);
     res.json({ id: id });
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on port http://localhost:${port}`);
 });
