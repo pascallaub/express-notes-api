@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 8080;
+const port = import.meta.env.NOTES_APP_PORT;
 
 app.use(express.json());
 
@@ -23,7 +23,7 @@ app.get('/notes/:id', (req, res) => {
 });
 
 app.put('/notes/:id', (req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
     const note = notes.find(note => note.id == id);
     note.note = req.body.note;
     note.autor = req.body.autor;
@@ -43,7 +43,7 @@ app.post('/notes', (req, res) => {
 });
 
 app.delete('/notes/:id', (req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
     notes = notes.filter(note => note.id != id);
     res.json({ id: id });
 });
