@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
-const port = import.meta.env.NOTES_APP_PORT;
+const dotenv = require('dotenv');
+
+dotenv.config();
+const port = process.env.NOTES_APP_PORT
 
 app.use(express.json());
 
@@ -18,13 +21,12 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/notes/:id', (req, res) => {
-    const note = notes.find(note => note.id === req.params.id);
+    const note = notes.find(note => note.id === parseInt(req.params.id));
     res.json(note);
 });
 
 app.put('/notes/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    const note = notes.find(note => note.id == id);
+    const note = notes.find(note => note.id == parseInt(req.params.id));
     note.note = req.body.note;
     note.autor = req.body.autor;
     note.date = req.body.date;
@@ -43,8 +45,7 @@ app.post('/notes', (req, res) => {
 });
 
 app.delete('/notes/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    notes = notes.filter(note => note.id != id);
+    notes = notes.filter(note => note.id != parseInt(req.params.id));
     res.json({ id: id });
 });
 
