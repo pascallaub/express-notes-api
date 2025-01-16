@@ -25,8 +25,7 @@ app.get('/notes/:id', (req, res) => {
 });
 
 app.put('/notes/:id', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    const note = notes.find(note => note.id === id);
+    const note = notes.find(note => note.id === parseInt(req.params.id));
 
     if (!note) {
         return res.status(404).json({ message: "Note not found!" });
@@ -56,8 +55,7 @@ app.post('/notes', (req, res) => {
 });
 
 app.delete('/notes/:id', (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    const noteIndex = notes.findIndex(note => note.id === id);
+    const noteIndex = notes.findIndex(note => note.id === parseInt(req.params.id));
     if (noteIndex === -1) {
         return res.status(404).json({ message: "Note not found" });
     }
