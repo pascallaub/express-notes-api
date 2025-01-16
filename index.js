@@ -35,14 +35,14 @@ app.put('/notes/:id', (req, res) => {
         return res.status(404).json({ message: "Note not found!" });
     }
 
-    const { note: updatedNote, autor, date } = req.body;
-    if (!updatedNote || !autor || !date) {
+    const { note: updatedNote, autor } = req.body;
+    if (!updatedNote || !autor) {
         return res.status(400).json({ message: "All fields (note, autor, date) required" });
     }
 
     note.note = updatedNote;
     note.autor = autor;
-    note.date = date;
+    note.date = new Date();
 
     res.json(note);
 });
