@@ -11,7 +11,7 @@ let notes = [
         id: 1,
         note: "My new Note",
         autor: "Max Mustermann",
-        date: "2025-01-15"
+        date: "Thu Jan 16 2025"
     }
 ]
 
@@ -42,7 +42,7 @@ app.put('/notes/:id', (req, res) => {
 
     note.note = updatedNote;
     note.autor = autor;
-    note.date = new Date();
+    note.date = new Date().toDateString();
 
     res.json(note);
 });
@@ -52,7 +52,7 @@ app.post('/notes', (req, res) => {
         id: notes.length + 1,
         note: req.body.note,
         autor: req.body.autor,
-        date: new Date()
+        date: new Date().toDateString()
     };
     notes.push(note);
     res.json(note);
