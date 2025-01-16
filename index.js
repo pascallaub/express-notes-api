@@ -1,10 +1,7 @@
 const express = require('express');
 const app = express();
-const dotenv = require('dotenv');
 
-dotenv.config();
-const port = process.env.NOTES_APP_PORT
-
+const port = process.env.NOTES_APP_PORT || 8080;
 app.use(express.json());
 
 let notes = [
@@ -26,10 +23,22 @@ app.get('/notes/:id', (req, res) => {
 });
 
 app.put('/notes/:id', (req, res) => {
-    const note = notes.find(note => note.id == parseInt(req.params.id));
-    note.note = req.body.note;
-    note.autor = req.body.autor;
-    note.date = req.body.date;
+    const id = parseInt(req.params.id, 10);
+    const note = notes.find(note => note.id === id);
+
+    if (!note) {
+        return res.status(404).json({ message: "Note not found!" });
+    }
+
+    const { note: updatedNote, autor, date } = req.body;
+    if (!updatedNote || !autor || !date) {
+        return res.status(400).json({ message: "All fields (note, autor, date) required" });
+    }
+
+    note.note = updatedNote;
+    note.autor = autor;
+    note.date = date;
+
     res.json(note);
 });
 
@@ -45,8 +54,13 @@ app.post('/notes', (req, res) => {
 });
 
 app.delete('/notes/:id', (req, res) => {
-    notes = notes.filter(note => note.id != parseInt(req.params.id));
-    res.json({ id: id });
+    const id = parseInt(req.params.id, 10);
+    const noteIndex = notes.findIndex(note => note.id === id);
+    if (noteIndex === -1) {
+        return res.status(404).json({ message: "Note not found" });
+    }
+    const deletedNote = notes.splice(noteIndex, 1)[0];
+    res.json(deletedNote);
 });
 
 app.listen(port, () => {
