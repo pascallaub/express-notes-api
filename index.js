@@ -15,6 +15,10 @@ let notes = [
     }
 ]
 
+app.get('/', (req, res) => {
+    res.send('Notes App');
+});
+
 app.get('/notes', (req, res) => {
     res.json(notes);
 });
