@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
+const dotenv = require('dotenv');
 
-const port = process.env.NOTES_APP_PORT || 8080;
 app.use(express.json());
+dotenv.config();
+const port = process.env.NOTES_APP_PORT;
 
 let notes = [
     {
