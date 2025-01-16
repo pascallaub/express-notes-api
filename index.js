@@ -52,7 +52,7 @@ app.post('/notes', (req, res) => {
         id: notes.length + 1,
         note: req.body.note,
         autor: req.body.autor,
-        date: req.body.date
+        date: new Date()
     };
     notes.push(note);
     res.json(note);
